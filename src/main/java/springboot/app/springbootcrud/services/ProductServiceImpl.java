@@ -34,10 +34,10 @@ public class ProductServiceImpl implements ProductService{
     }
     @Transactional
     @Override
-    public Optional<Product> delete(Product product) {
-        Optional<Product> prodDb = productRepo.findById(product.getId());
+    public Optional<Product> delete(Long id) {
+        Optional<Product> prodDb = productRepo.findById(id);
         prodDb.ifPresent(p->{
-            productRepo.delete(product);
+            productRepo.delete(p);
         });
         return prodDb;
     }

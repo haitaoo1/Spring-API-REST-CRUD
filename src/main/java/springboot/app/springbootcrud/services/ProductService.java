@@ -16,7 +16,7 @@ public interface ProductService {
     Product save(Product product);
 
     //eliminar un producto
-    Optional<Product> delete(Product product);
+    Optional<Product> delete(Long id);
     
     
 } 
