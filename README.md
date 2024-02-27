@@ -70,4 +70,5 @@ spring.jpa.show-sql=true
 
 The methods(POST, GET, DELETE) won´t return anything if the product does not exist. It will show us the HTTP status (ERROR 404 NOT FOUND). All exceptions are managed.
 
+## JWT
 
