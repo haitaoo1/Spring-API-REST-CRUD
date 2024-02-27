@@ -9,7 +9,6 @@ import springboot.app.springbootcrud.entities.Role;
 public interface RoleRepository extends CrudRepository<Role, Long> {
 
     Optional<Role> findByName(String name);
-    
 
-    
+
 }
