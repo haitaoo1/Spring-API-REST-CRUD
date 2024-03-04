@@ -48,6 +48,7 @@ public class JwtValidationFilter extends BasicAuthenticationFilter{
 
         // en caso de que nos pasen un token  que no tenga el autorization y el bearer nos salimos
         if(header == null || header.startsWith(PREFIX_TOKEN)){
+            chain.doFilter(request, response);
             return;
         }
         //quitamos el bearer de la cabecera, solo queremos el token
