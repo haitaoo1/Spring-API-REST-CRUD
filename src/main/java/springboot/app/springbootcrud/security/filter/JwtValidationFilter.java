@@ -47,7 +47,7 @@ public class JwtValidationFilter extends BasicAuthenticationFilter{
         String header = request.getHeader(HEADER_AUTHORIZATION);
 
         // en caso de que nos pasen un token  que no tenga el autorization y el bearer nos salimos
-        if(header == null || header.startsWith(PREFIX_TOKEN)){
+        if(header == null || !header.startsWith(PREFIX_TOKEN)){
             chain.doFilter(request, response);
             return;
         }
@@ -61,12 +61,14 @@ public class JwtValidationFilter extends BasicAuthenticationFilter{
             //String username2 = (String) claims.get("username");
             Object authoritiesClaims = claims.get("authorities");
             //autenticar
-            Collection<? extends GrantedAuthority> authorities =
-                Arrays.asList( new ObjectMapper()
-                .addMixIn(SimpleGrantedAuthority.class, SimpleGrantedAuthorityJsonCreator.class)
-                .readValue(authoritiesClaims.toString().getBytes(), SimpleGrantedAuthority[].class));
+            Collection<? extends GrantedAuthority> authorities = Arrays.asList(
+                    new ObjectMapper()
+                .addMixIn(SimpleGrantedAuthority.class, 
+                                    SimpleGrantedAuthorityJsonCreator.class)
+                .readValue(authoritiesClaims.toString().getBytes(), SimpleGrantedAuthority[].class)
+                );
 
-            UsernamePasswordAuthenticationToken authenticationToken= new UsernamePasswordAuthenticationToken(username, null, null);
+            UsernamePasswordAuthenticationToken authenticationToken= new UsernamePasswordAuthenticationToken(username, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             chain.doFilter(request, response);
 
