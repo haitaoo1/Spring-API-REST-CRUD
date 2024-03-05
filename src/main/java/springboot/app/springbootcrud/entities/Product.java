@@ -10,6 +10,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import springboot.app.springbootcrud.Validation.IsExistsDb;
+import springboot.app.springbootcrud.Validation.IsRequired;
 
 @Entity
 @Table(name= "products")
@@ -30,8 +32,16 @@ public class Product {
     @NotBlank(message = "{NotBlank.product.description}")
     private String description;
 
+    @IsRequired
+    @IsExistsDb
+    private String sku;
 
-
+    public String getSku() {
+        return sku;
+    }
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
     public Long getId() {
         return id;
     }

@@ -41,5 +41,28 @@ public class ProductServiceImpl implements ProductService{
         });
         return prodDb;
     }
+
+    @Override
+    @Transactional
+    public Optional<Product> update(Long id, Product product) {
+        Optional<Product> productOptional = productRepo.findById(id);
+        if (productOptional.isPresent()) {
+            Product productDb = productOptional.orElseThrow();
+            
+            productDb.setSku(product.getSku());
+            productDb.setName(product.getName());
+            productDb.setDescription(product.getDescription());
+            productDb.setPrice(product.getPrice());
+            return Optional.of(productRepo.save(productDb));
+            
+        }
+        return productOptional;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsBySku(String username) {
+        return productRepo.existsBySku(username);
+    }
     
 }

@@ -35,8 +35,16 @@ public class SpringSecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests( (authz) -> authz
         .requestMatchers(HttpMethod.GET, "/api/users").permitAll()
+        //SOLO PUEDE CREAR USUARIOS NORMALES
         .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
-                .anyRequest().authenticated())
+        //SOLO LOS QUE TIENE ROL ADMIN PUEDEN CREAR OTROS USUARIOS(ADMIN/NORMAL)
+        .requestMatchers(HttpMethod.POST, "/api/users/").hasRole("ADMIN")
+        //solo los admins pueden CRUD los productos(se especifica id si es put,delete)
+        .requestMatchers(HttpMethod.GET, "/api/products", "/api/products/{id}").hasAnyRole("ADMIN", "USER")
+        .requestMatchers(HttpMethod.POST, "/api/products").hasRole("ADMIN")
+        .requestMatchers(HttpMethod.PUT, "/api/products/{id}").hasRole("ADMIN")
+        .requestMatchers(HttpMethod.DELETE, "/api/products/{id}").hasRole("ADMIN")
+        .anyRequest().authenticated())
         .addFilter(new JwtAuthenticationFilter(authenticationManager()))
         .addFilter(new JwtValidationFilter(authenticationManager()))
         .csrf(config -> config.disable())

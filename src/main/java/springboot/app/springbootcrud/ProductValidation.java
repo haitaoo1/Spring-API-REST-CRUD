@@ -30,7 +30,7 @@ public class ProductValidation implements Validator {
         if(product.getPrice() == null ){
             errors.rejectValue("price", "null", "no puede ser nulo, okk");
         }else if(product.getPrice() < 300 ){
-            errors.rejectValue("price", "null", "debe ser un valor mayor o igual q");
+            errors.rejectValue("price", "null", "debe ser un valor mayor o igual a 300");
         }
     }
 

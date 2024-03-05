@@ -21,6 +21,8 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import springboot.app.springbootcrud.Validation.ExistsByUsername;
+import springboot.app.springbootcrud.Validation.IsExistsDb;
+import springboot.app.springbootcrud.Validation.IsRequired;
 
 @Entity
 @Table(name = "users")
@@ -35,6 +37,8 @@ public class User {
     @Size(min = 4, max = 12)
     @Column(unique = true)
     private String username;
+
+   
 
     @NotBlank
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -145,5 +149,6 @@ public class User {
         return true;
     }
 
+  
     
 }
