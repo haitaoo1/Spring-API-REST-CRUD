@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ import springboot.app.springbootcrud.ProductValidation;
 import springboot.app.springbootcrud.entities.Product;
 import springboot.app.springbootcrud.services.ProductService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +28,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
-
-
+//la ruta de front es diferente 
+//para que el front(angular) pueda consumir la api de back
+@CrossOrigin(origins = "http://localhost:4200", originPatterns = "*")
+//para cualquier ruta
+//@CrossOrigin(originPatterns = "*")
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
@@ -36,12 +41,14 @@ public class ProductController {
     @Autowired
     private ProductValidation validation;
 
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping
     public List<Product> list(){
         return pService.findAll();
     }
 
     //Metodo para ver un producto
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
     public ResponseEntity<?> view(@PathVariable Long id){
         Optional<Product> productOpt =  pService.findById(id);
@@ -53,6 +60,7 @@ public class ProductController {
 
     //metodo para insertar prodcto en la BD
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> create(@Valid @RequestBody Product product, BindingResult result){
         validation.validate(product, result);
         if(result.hasFieldErrors()){
@@ -65,7 +73,7 @@ public class ProductController {
     }
 
     //metodo para insertar producto en la BD
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")  //BindingResult tiene que ir despues del Objeto(Product)                      
     public  ResponseEntity<?> update(@PathVariable Long id,@Valid
      @RequestBody Product product, BindingResult result){
@@ -89,7 +97,7 @@ public class ProductController {
         });
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     //metodo para eliminar en la BD
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
@@ -99,6 +107,7 @@ public class ProductController {
         }
         return ResponseEntity.notFound().build();
     }
+
 
 
 }
