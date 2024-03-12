@@ -1,25 +1,52 @@
 
-# Spring Boot- API Rest
+# Spring Boot- APIRest
 
-Create an example of API REST using Spring Boot Framework with Maven and JPA-Hibernate connected to MySQL.
-
-
+This is an example of a REST API developed using the Spring Boot Framework, Maven, and JPA-Hibernate for data persistence, connected to a MySQL database. Additionally, this project has been deployed using Docker for container management. To perform CRUD (Create, Read, Update, and Delete) operations on a sample entity, such as Product, users are required to log in with existing credentials or create a new user.
 
 
-
-## Database Configuration
-Using the application.properties file to configure the connection to a MYSQL database
-```
-spring.jpa.database=MYSQL
-spring.datasource.url=jdbc:mysql://localhost:3306/db_jpa_crud
-spring.datasource.username=root
-spring.datasource.password=*****
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
-spring.jpa.show-sql=true
+## Starting the Project
+To build and package the project, you can execute the following commando
 
 ```
+./mvnw clean package -DskipTests
+```
+This command will clean the project, compile the code, run tests (skipped with -DskipTests), and package the application into a JAR file.
+
+
+## Docker Container 
+Navigate to the docker directory:
+
+```
+cd docker
+```
+
+To start the Docker container, use the following command:
+
+```
+docker-compose up
+```
+This command will initialize the Docker container based on the configuration provided in the docker-compose.yml file.
+
+To take down the Docker container when finished testing, you can use the following command:
+
+```
+docker-compose down
+```
+
+
+
+
+
 ## API Reference
+
+### Get all users
+
+```http
+  GET /api/users
+```
+| Description                       |
+| :-------------------------------- |
+  | `Get all users`
 
 #### Get all products in the DB
 
@@ -71,4 +98,6 @@ spring.jpa.show-sql=true
 The methods(POST, GET, DELETE) won´t return anything if the product does not exist. It will show us the HTTP status (ERROR 404 NOT FOUND). All exceptions are managed.
 
 ## JWT
+
+
 
