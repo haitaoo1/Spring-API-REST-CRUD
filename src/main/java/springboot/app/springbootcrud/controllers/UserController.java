@@ -1,4 +1,6 @@
 package springboot.app.springbootcrud.controllers;
+import springboot.app.springbootcrud.entities.User;
+import springboot.app.springbootcrud.services.UserService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,15 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import springboot.app.springbootcrud.entities.User;
-import springboot.app.springbootcrud.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
 @CrossOrigin(origins = "http://localhost:4200", originPatterns = "*")
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
@@ -45,11 +45,12 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody User user, BindingResult result){
-        if(result.hasFieldErrors()){
-            return validation(result);
-        }
+        // if(result.hasFieldErrors()){
+        //     return validation(result);
+        // }
         user.setAdmin(false);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userServices.save(user));
+            return create(user, result);
+        // return ResponseEntity.status(HttpStatus.CREATED).body(userServices.save(user));
     }
 
     private ResponseEntity<?> validation(BindingResult result){

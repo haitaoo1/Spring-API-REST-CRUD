@@ -38,8 +38,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class ProductController {
     @Autowired
     private ProductService pService;
-    @Autowired
-    private ProductValidation validation;
+    // @Autowired
+    // private ProductValidation validation;
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping
@@ -48,8 +48,8 @@ public class ProductController {
     }
 
     //Metodo para ver un producto
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> view(@PathVariable Long id){
         Optional<Product> productOpt =  pService.findById(id);
         if(productOpt.isPresent()){
@@ -62,7 +62,7 @@ public class ProductController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> create(@Valid @RequestBody Product product, BindingResult result){
-        validation.validate(product, result);
+       // validation.validate(product, result);
         if(result.hasFieldErrors()){
             return validation(result);
         }
@@ -77,12 +77,12 @@ public class ProductController {
     @PutMapping("/{id}")  //BindingResult tiene que ir despues del Objeto(Product)                      
     public  ResponseEntity<?> update(@PathVariable Long id,@Valid
      @RequestBody Product product, BindingResult result){
-        validation.validate(product, result);
+       // validation.validate(product, result);
         if(result.hasFieldErrors()){
             return validation(result);
         }
         
-        Optional<Product> OptProduct = pService.findById(id);
+        Optional<Product> OptProduct = pService.update(id, product);
         if(OptProduct.isPresent()){
 
             return ResponseEntity.status(HttpStatus.CREATED).body(pService.save(product));
