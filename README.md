@@ -60,10 +60,15 @@ docker-compose down
 
 
 
-###
+### ACCESS TO PRODUCTS 
 
-#### 
+#### User Authentication
+To access this endpoints, users need to authenticate by providing their username and password.
 
+```http
+POST /login
+```
+This endpoint allows users to authenticate by providing their username and password in JSON format. Upon successful authentication, users will receive an authentication token to access protected endpoints
 
 #### Get all products in the DB
 
