@@ -27,9 +27,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import static springboot.app.springbootcrud.security.TokenJwtConfig.*;
 
+
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    //crea el token 
     private AuthenticationManager authenticationManager;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -109,3 +109,4 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
 }
+
