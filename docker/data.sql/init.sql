@@ -46,15 +46,15 @@ INSERT INTO `products` (`id`, `name`, `price`, `description`, `sku`) VALUES ('1'
                                                                                            ('4', 'Smartwatch Apple', '200', 'Pantalla Retina, GPS Integrado, Resistente al Agua', '121314'),
                                                                                            ('5', 'Cámara Canon', '800', 'Sensor Full Frame, Grabación 4K, Wi-Fi Integrado', '151617');
 
--- Initial Users
-INSERT INTO `users` (`id`, `username`, `password`, `enabled`) VALUES ('1', 'Admin', '12345', '1'),
-                                                                                    ('2', 'Juan', '12345', '1'),
-                                                                                    ('3', 'Maria', '12345', '1'),
-                                                                                    ('4', 'Pedro', '12345', '1');
+-- -- Initial Users
+-- INSERT INTO `users` (`id`, `username`, `password`, `enabled`) VALUES ('1', 'Admin', '12345', '1'),
+--                                                                                     ('2', 'Juan', '12345', '1'),
+--                                                                                     ('3', 'Maria', '12345', '1'),
+--                                                                                     ('4', 'Pedro', '12345', '1');
 
--- Initial USER_ROLES
-INSERT INTO`users_roles` (`user_id`, `role_id`) VALUES ('1', '2'),
-                                                                      ('1', '1'),
-                                                                      ('2', '2'),
-                                                                      ('3', '2'),
-                                                                      ('4', '2');
+-- -- Initial USER_ROLES
+-- INSERT INTO`users_roles` (`user_id`, `role_id`) VALUES ('1', '2'),
+--                                                                       ('1', '1'),
+--                                                                       ('2', '2'),
+--                                                                       ('3', '2'),
+--                                                                       ('4', '2');
