@@ -35,11 +35,9 @@ docker-compose down
 
 
 
-
-
 ## API Reference
 
-### Get all users
+#### Get all users
 
 ```http
   GET /api/users
@@ -47,6 +45,25 @@ docker-compose down
 | Description                       |
 | :-------------------------------- |
   | `Get all users`
+
+
+#### Create a new user
+
+```http
+  POST /api/users/register
+```
+
+| Request Body | Description                       |
+| :-------- | :-------------------------------- |
+| `JSON`     | `{"username": "...", "password" : "..."}`|
+
+
+
+
+###
+
+#### 
+
 
 #### Get all products in the DB
 
